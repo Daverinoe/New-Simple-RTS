@@ -1,6 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://byhwma6bp3ebs"]
+[gd_scene load_steps=14 format=3 uid="uid://byhwma6bp3ebs"]
 
 [ext_resource type="Script" path="res://source/scenes/main/main.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://cr3yf10qwm830" path="res://source/scenes/main/player_controller/player_controller.tscn" id="2_vh1hj"]
+[ext_resource type="PackedScene" uid="uid://ct1pwafvp3gbr" path="res://assets/models/humans/Human_Village_Building_08.glb" id="3_y42f8"]
+[ext_resource type="Script" path="res://source/scenes/main/MiniMap.gd" id="4_04gih"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6rf7u"]
 
@@ -26,15 +29,50 @@ albedo_color = Color(0.0980392, 0.239216, 0.0745098, 1)
 material = SubResource("StandardMaterial3D_y8gft")
 size = Vector2(20, 20)
 
-[node name="main" type="Node3D"]
-script = ExtResource("1")
+[sub_resource type="PlaneMesh" id="PlaneMesh_ragdo"]
+size = Vector2(4, 4)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0459, 1.6123)
-current = true
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_nanc2"]
+albedo_color = Color(0, 0.14902, 1, 1)
+
+[node name="main" type="Node3D" node_paths=PackedStringArray("player_controller")]
+script = ExtResource("1")
+player_controller = NodePath("PlayerController")
+
+[node name="PlayerController" parent="." instance=ExtResource("2_vh1hj")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3qheu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_n6xwp")
+
+[node name="TestBuildings" type="Node3D" parent="."]
+
+[node name="Human_Village_Building_08" parent="TestBuildings" instance=ExtResource("3_y42f8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.057653, 0, 0.694838)
+
+[node name="Human_Village_Building_082" parent="TestBuildings/Human_Village_Building_08" index="0"]
+layers = 4
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestBuildings/Human_Village_Building_08"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28205, 0)
+layers = 1024
+mesh = SubResource("PlaneMesh_ragdo")
+surface_material_override/0 = SubResource("ORMMaterial3D_nanc2")
+
+[node name="MiniMap" type="SubViewport" parent="."]
+canvas_cull_mask = 4293918720
+render_target_update_mode = 4
+script = ExtResource("4_04gih")
+
+[node name="MiniMapCamera" type="Camera3D" parent="MiniMap"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 103.082, 0)
+cull_mask = 1537
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.606044, -0.105022, 0.788468, -0.777771, -0.285956, 0.559733, 0.166683, -0.95247, -0.254985, 0, 10.2569, 0)
+shadow_enabled = true
+
+[editable path="TestBuildings/Human_Village_Building_08"]

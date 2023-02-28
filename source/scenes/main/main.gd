@@ -1,9 +1,12 @@
 extends MainScene
 
+@export var player_controller : PlayerController
 
 func _ready() -> void:
 	SerialisationManager.add_to_persist(self)
 	GlobalRefs.level_ref = self
+	
+	player_controller.minimap_viewport = GlobalRefs.minimap_viewport
 
 
 func _process(delta: float) -> void:

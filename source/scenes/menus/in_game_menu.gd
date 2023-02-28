@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @onready var button_refs := [
 	$MarginContainer/VBoxContainer/MarginContainer5/Resume,

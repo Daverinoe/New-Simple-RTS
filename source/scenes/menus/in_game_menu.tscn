@@ -2,16 +2,12 @@
 
 [ext_resource type="Script" path="res://source/scenes/menus/in_game_menu.gd" id="1_yd431"]
 
-[node name="InGameMenu" type="Control"]
+[node name="InGameMenu" type="CanvasLayer"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
+layer = 10
 script = ExtResource("1_yd431")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 108.0
