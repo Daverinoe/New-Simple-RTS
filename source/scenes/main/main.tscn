@@ -28,7 +28,7 @@ albedo_color = Color(0.0980392, 0.239216, 0.0745098, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_n6xwp"]
 material = SubResource("StandardMaterial3D_y8gft")
-size = Vector2(20, 20)
+size = Vector2(100, 100)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ragdo"]
 size = Vector2(4, 4)
@@ -39,6 +39,7 @@ albedo_color = Color(0, 0.14902, 1, 1)
 [node name="main" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1")
 player_controller = NodePath("PlayerController")
+map_size = Vector2(100, 100)
 
 [node name="PlayerController" parent="." instance=ExtResource("2_vh1hj")]
 

@@ -1,10 +1,15 @@
 extends MainScene
 
+@export_category("Player controller")
 @export var player_controller : PlayerController
+
+@export_category("Map constants")
+@export var map_size : Vector2
 
 func _ready() -> void:
 	SerialisationManager.add_to_persist(self)
 	GlobalRefs.level_ref = self
+	GlobalRefs.map_size = map_size
 	
 	player_controller.minimap_viewport = GlobalRefs.minimap_viewport
 

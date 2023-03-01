@@ -13,6 +13,9 @@ var level_ref
 var active_menu
 var active_scene
 
+# Maps refs
+var map_size : Vector2
+
 
 # Minimap refs
 var minimap_viewport : SubViewport
