@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://byhwma6bp3ebs"]
+[gd_scene load_steps=15 format=3 uid="uid://byhwma6bp3ebs"]
 
 [ext_resource type="Script" path="res://source/scenes/main/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cr3yf10qwm830" path="res://source/scenes/main/player_controller/player_controller.tscn" id="2_vh1hj"]
 [ext_resource type="PackedScene" uid="uid://ct1pwafvp3gbr" path="res://assets/models/humans/Human_Village_Building_08.glb" id="3_y42f8"]
 [ext_resource type="Script" path="res://source/scenes/main/MiniMap.gd" id="4_04gih"]
+[ext_resource type="Script" path="res://source/scenes/main/DayNightCycle.gd" id="5_qbkxf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6rf7u"]
 
@@ -71,8 +72,9 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 103
 cull_mask = 1537
 current = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.606044, -0.105022, 0.788468, -0.777771, -0.285956, 0.559733, 0.166683, -0.95247, -0.254985, 0, 10.2569, 0)
+[node name="DayNightCycle" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 10.2569, 0)
 shadow_enabled = true
+script = ExtResource("5_qbkxf")
 
 [editable path="TestBuildings/Human_Village_Building_08"]
