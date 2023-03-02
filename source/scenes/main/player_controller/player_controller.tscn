@@ -7,8 +7,9 @@
 [ext_resource type="Script" path="res://source/scenes/main/player_controller/MiniMap.gd" id="4_0iu55"]
 [ext_resource type="Script" path="res://source/scenes/main/player_controller/CameraArm.gd" id="4_gsr3h"]
 
-[node name="PlayerController" type="Node3D"]
+[node name="PlayerController" type="Node3D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_fxalx")
+camera = NodePath("CameraArm/PlayerCamera")
 
 [node name="PlayerUI" type="CanvasLayer" parent="."]
 layer = 9

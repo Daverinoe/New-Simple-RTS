@@ -75,7 +75,6 @@ func _ready() -> void:
 				self.queue_free()
 		"colorblind":
 			var options = SettingsManager.COLORBLIND_OPTIONS
-			print(options.size())
 			for index in SettingsManager.COLORBLIND_OPTIONS.size():
 				ref = ref as OptionButton
 				var setting_name = SettingsManager.COLORBLIND_OPTIONS.keys()[index]

@@ -6,3 +6,7 @@ signal reload_main_menu # For forcing the main menu to check whether save games 
 
 # Camera signals
 signal new_camera_position(new_position)
+
+
+# Unit selection signals
+signal click_and_drag_selection_made(select_rectangle: Rect2)

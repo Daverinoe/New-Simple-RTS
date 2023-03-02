@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://byhwma6bp3ebs"]
+[gd_scene load_steps=16 format=3 uid="uid://byhwma6bp3ebs"]
 
 [ext_resource type="Script" path="res://source/scenes/main/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cr3yf10qwm830" path="res://source/scenes/main/player_controller/player_controller.tscn" id="2_vh1hj"]
@@ -30,6 +30,9 @@ albedo_color = Color(0.0980392, 0.239216, 0.0745098, 1)
 material = SubResource("StandardMaterial3D_y8gft")
 size = Vector2(100, 100)
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_r4ht8"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_ragdo"]
 size = Vector2(4, 4)
 
@@ -48,6 +51,11 @@ environment = SubResource("Environment_3qheu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_n6xwp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_r4ht8")
 
 [node name="TestBuildings" type="Node3D" parent="."]
 

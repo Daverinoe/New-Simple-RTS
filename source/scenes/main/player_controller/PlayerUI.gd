@@ -16,13 +16,13 @@ func _input(event):
 		queue_redraw()
 	elif event.is_action_released("ui_select"):
 		is_click_dragging = false
+		Event.emit_signal("click_and_drag_selection_made", select_rectangle)
 		queue_redraw()
 
 
 
 func _draw():
 	if is_click_dragging:
-		print(select_rectangle)
 		draw_rect(select_rectangle, Color(Color.CORNFLOWER_BLUE, 0.3))
 
 
