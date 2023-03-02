@@ -70,8 +70,6 @@ func switch_scenes(previous_scene_reference, next_scene_path, is_load_request: b
 	var new_scene = ResourceLoader.load_threaded_get(path_to_load)
 	new_instance = new_scene.instantiate()
 	new_instance.visible = false
-	
-	get_tree().root.add_child(new_instance)
 	new_instance.set_process(false)
 	
 	# If loading, pass off instance to the load handler
@@ -105,6 +103,7 @@ func tween_load_visibility(start_alpha, final_alpha) -> void:
 
 
 func finish_switch() -> void:
+	get_tree().root.add_child(new_instance)
 	new_instance.visible = true
 	# Fade out loading scene
 	tween_load_visibility(1.0, 0.0)

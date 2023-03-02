@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr3yf10qwm830"]
+[gd_scene load_steps=7 format=3 uid="uid://cr3yf10qwm830"]
 
 [ext_resource type="Script" path="res://source/scenes/main/player_controller/player_controller.gd" id="1_fxalx"]
 [ext_resource type="Texture2D" uid="uid://ychix7psmp3g" path="res://assets/textures/ui/side_bar.png" id="2_83c1j"]
+[ext_resource type="Script" path="res://source/scenes/main/player_controller/PlayerUI.gd" id="2_el004"]
 [ext_resource type="Texture2D" uid="uid://cro18ikp2t1km" path="res://assets/textures/ui/top_bar.png" id="3_ftkq7"]
 [ext_resource type="Script" path="res://source/scenes/main/player_controller/MiniMap.gd" id="4_0iu55"]
 [ext_resource type="Script" path="res://source/scenes/main/player_controller/CameraArm.gd" id="4_gsr3h"]
@@ -40,6 +41,16 @@ offset_bottom = 1599.0
 mouse_filter = 0
 script = ExtResource("4_0iu55")
 metadata/_edit_use_anchors_ = true
+
+[node name="RectangleDrawer" type="Control" parent="PlayerUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_el004")
 
 [node name="CameraArm" type="Node3D" parent="."]
 script = ExtResource("4_gsr3h")
