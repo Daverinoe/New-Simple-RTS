@@ -19,3 +19,7 @@ var map_size : Vector2
 
 # Minimap refs
 var minimap_viewport : SubViewport
+
+
+# Controller refs
+var player_controller : PlayerController

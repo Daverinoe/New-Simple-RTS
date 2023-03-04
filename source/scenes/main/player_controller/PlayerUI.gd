@@ -6,19 +6,26 @@ var select_rectangle : Rect2
 var is_click_dragging : bool = false
 
 
-func _input(event):
-	if event is InputEventMouseButton and event.is_action_pressed("ui_select"):
-		if !is_click_dragging:
-			initial_click_point = get_viewport().get_mouse_position()
-			is_click_dragging = true
-	if event is InputEventMouseMotion and is_click_dragging:
-		select_rectangle = update_selection_rectangle(get_viewport().get_mouse_position())
-		queue_redraw()
-	elif event.is_action_released("ui_select"):
+func _process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("ui_select") and !is_click_dragging:
+		var selected = get_tree().get_nodes_in_group("player_selected")
+		if selected.size() != 0:
+			for node in selected:
+				node.selected = false
+		initial_click_point = get_viewport().get_mouse_position()
+		is_click_dragging = true
+	
+	if Input.is_action_just_released("ui_select") and is_click_dragging:
 		is_click_dragging = false
 		Event.emit_signal("click_and_drag_selection_made", select_rectangle)
 		queue_redraw()
-
+	
+	if is_click_dragging:
+		select_rectangle = update_selection_rectangle(get_viewport().get_mouse_position())
+		queue_redraw()
+	
+	
 
 
 func _draw():
@@ -34,3 +41,4 @@ func update_selection_rectangle(current_mouse_position: Vector2) -> Rect2:
 	var y_size : float = current_mouse_position.y - initial_click_point.y
 	
 	return Rect2(initial_click_point, Vector2(x_size, y_size))
+
