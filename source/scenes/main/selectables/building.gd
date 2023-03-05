@@ -14,3 +14,7 @@ func set_group(on_screen: bool) -> void:
 	
 	if on_screen and in_game_owner == OWNERS.PLAYER:
 		add_to_group("owned_buildings_on_screen")
+
+
+func context_action_click(position: Vector3) -> void:
+	pass

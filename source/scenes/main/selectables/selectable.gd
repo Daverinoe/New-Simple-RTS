@@ -6,11 +6,8 @@ enum OWNERS {
 	AI = 1,
 }
 
-@export_category("Selection Variables")
-@export_enum("PLAYER", "AI", "NEUTRAL") var in_game_owner : int
-@export var selection_circle : Sprite3D
-
-@export_category("Stats")
+@export_category("Unit")
+@export_group("Stats")
 @export var max_health : int = 150
 @export var current_health : int = 150
 @export var max_mana : int = 0
@@ -21,10 +18,17 @@ enum OWNERS {
 @export_enum("LIGHT", "HEAVY", "FORTIFIED") var armour_type : int
 @export var armour : float = 1.0
 
-@export_category("Visibility variables")
+
+@export_category("Selection Variables")
+@export var display_portait : TextureRect
+
+@export_enum("PLAYER", "AI", "NEUTRAL") var in_game_owner : int
+@export var selection_circle : Sprite3D
+@export var selectable_name : String
+
 @export var visibility_notifier : VisibleOnScreenNotifier3D
 
-@export_category("Animation variables")
+@export_group("Animation variables")
 @export var animation_player : AnimationPlayer
 @export var animation_tree : AnimationTree
 @onready var state_machine = animation_tree["parameters/playback"]
@@ -45,6 +49,7 @@ var selected : bool = false :
 		selection_circle.visible = select_state
 		check_and_set_select_group()
 		Event.emit_signal("selectable_select_state", self, select_state)
+		Event.emit_signal("change_portrait", selectable_name)
 
 
 func _ready():

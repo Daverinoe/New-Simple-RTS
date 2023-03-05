@@ -96,6 +96,7 @@ action_click={
 3d_render/layer_1="Terrain"
 3d_render/layer_2="Units"
 3d_render/layer_3="Buildings"
+3d_render/layer_4="Selection Icons"
 3d_render/layer_10="Unit Minimap Icons"
 3d_render/layer_11="Building Minimap Icons"
 

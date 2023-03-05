@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjj47ux7ou1m1"]
+
+[ext_resource type="PackedScene" uid="uid://so4yr7vhp3xm" path="res://assets/models/humans/farm.tscn" id="1_i22iy"]
+[ext_resource type="Script" path="res://source/scenes/main/player_controller/portraits.gd" id="1_nofmt"]
+[ext_resource type="PackedScene" uid="uid://bip5rs8tyyesc" path="res://assets/models/humans/units/peasant/peasant.tscn" id="2_8r05s"]
+
+[sub_resource type="Environment" id="Environment_qjcn2"]
+
+[sub_resource type="Gradient" id="Gradient_1ofn6"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4ybj2"]
+gradient = SubResource("Gradient_1ofn6")
+
+[sub_resource type="Gradient" id="Gradient_wn1xe"]
+offsets = PackedFloat32Array(0, 0.850325)
+colors = PackedColorArray(0, 0, 1, 1, 1.56425e-07, 0, 0.19701, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fqyx4"]
+gradient = SubResource("Gradient_wn1xe")
+fill_from = Vector2(0.48433, 1)
+fill_to = Vector2(0.45584, 0.002849)
+
+[node name="Portraits" type="Control"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nofmt")
+
+[node name="Farm" type="SubViewport" parent="."]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_cull_mask = 4293918724
+render_target_update_mode = 4
+
+[node name="VisibilityContainer" type="Node3D" parent="Farm"]
+visible = false
+
+[node name="Farm" parent="Farm/VisibilityContainer" instance=ExtResource("1_i22iy")]
+script = null
+
+[node name="PortraitCamera" type="Camera3D" parent="Farm/VisibilityContainer"]
+transform = Transform3D(0.946006, 0, 0.324149, 0, 1, 0, -0.324149, 0, 0.946006, 0.624564, 0.942005, 1.92464)
+cull_mask = 4
+environment = SubResource("Environment_qjcn2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Farm/VisibilityContainer"]
+transform = Transform3D(0.95923, 0.251819, -0.128314, 0, 0.454006, 0.890999, 0.282626, -0.854673, 0.435496, -0.618212, 1.25096, 1.50429)
+
+[node name="Peasant" type="SubViewport" parent="."]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+canvas_cull_mask = 4293918724
+render_target_update_mode = 4
+
+[node name="VisibilityContainer" type="Node3D" parent="Peasant"]
+visible = false
+
+[node name="peasant" parent="Peasant/VisibilityContainer" instance=ExtResource("2_8r05s")]
+transform = Transform3D(-0.949426, 0, -0.313992, 0, 1, 0, 0.313992, 0, -0.949426, 0, 0, 0)
+script = null
+
+[node name="PortraitCamera" type="Camera3D" parent="Peasant/VisibilityContainer"]
+transform = Transform3D(0.946006, 0, 0.324149, 0, 1, 0, -0.324149, 0, 0.946006, 0.181341, 0.787322, 0.565393)
+cull_mask = 2
+environment = SubResource("Environment_qjcn2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Peasant/VisibilityContainer"]
+transform = Transform3D(0.95923, 0.251819, -0.128314, 0, 0.454006, 0.890999, 0.282626, -0.854673, 0.435496, -0.618212, 1.25096, 1.50429)
+
+[node name="PortraitBackgroundEmpty" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_4ybj2")
+expand_mode = 1
+
+[node name="PortraitBackgroundColoured" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_fqyx4")
+expand_mode = 1
+
+[node name="PortraitCameraView" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 5
+stretch_mode = 5

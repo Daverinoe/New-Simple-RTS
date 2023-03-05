@@ -34,8 +34,9 @@ func _process(delta):
 
 
 func action_click(node) -> void:
-	if node.is_in_group("owned_by_player"):
-		node.move(cast_ray_from_camera(get_viewport().get_mouse_position()))
+	if node.is_in_group("owned_by_player") and node.has_method("context_action_click"):
+		var click_position : Vector3 = cast_ray_from_camera(get_viewport().get_mouse_position())
+		node.context_action_click(click_position)
 
 
 func set_minimap_viewport(new_viewport : SubViewport) -> void:

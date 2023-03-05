@@ -8,12 +8,11 @@ var start_degrees : float = 270.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	start_day_night()
+#	start_day_night()
+	pass
 
 
 func _process(delta: float) -> void:
-#	if self.rotation_degrees.x < 180.0:
-#		self.light_energy = 0
 	if self.rotation_degrees.x > 180.0:
 		self.light_energy = 1
 

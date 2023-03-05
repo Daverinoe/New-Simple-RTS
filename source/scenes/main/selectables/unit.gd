@@ -1,9 +1,11 @@
 extends Selectable
 class_name Unit
 
-@export_category("Movement variables")
+@export_category("Movement")
 @export var movement_speed : float = 2.0
 @export var turn_speed : float = 0.2
+
+@export_group("Navigation variables")
 @export var navigation_agent : NavigationAgent3D
 
 
@@ -12,9 +14,21 @@ func _ready() -> void:
 	
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
+	self.floor_constant_speed = true
 	
 	# Don't call await during ready, will cause issues.
 	call_deferred("setup_actor")
+	call_deferred("random_idle_change")
+	
+	navigation_agent.connect("velocity_computed", set_safe_velocity)
+
+
+func random_idle_change() -> void:
+	await get_tree().create_timer(randf_range(4, 10)).timeout
+	if state_machine.get_current_node() == "IDLE":
+		state_machine.travel("IDLE_LONG")
+	
+	random_idle_change()
 
 
 func _physics_process(delta: float) -> void:
@@ -31,10 +45,13 @@ func _physics_process(delta: float) -> void:
 	
 	var new_direction : Vector3 = next_path_position - current_agent_position
 	new_direction = new_direction.normalized()
-	var new_velocity : Vector3 = new_direction * movement_speed
+	navigation_agent.set_velocity(new_direction * movement_speed)
 	
-	set_velocity(new_velocity)
 	move_and_slide()
+
+
+func set_safe_velocity(velocity_from_server: Vector3) -> void:
+	set_velocity(velocity_from_server)
 
 
 func turn_to_look_at(position, next_position) -> void:
@@ -54,6 +71,9 @@ func turn_to_look_at(position, next_position) -> void:
 	)
 
 
+func context_action_click(position: Vector3) -> void:
+	move(position)
+
 
 func setup_actor() -> void:
 	# Wait for the first physics frame so the Navigation Server syncs
@@ -72,6 +92,7 @@ func set_group(on_screen: bool) -> void:
 
 
 func move(destination: Vector3) -> void:
+	destination.y = 0
 	navigation_agent.set_target_position(destination)
 	state_machine.travel("MOVE")
 

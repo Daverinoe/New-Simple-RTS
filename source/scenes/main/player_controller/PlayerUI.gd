@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 			if selected.size() != 0:
 				for node in selected:
 					node.selected = false
+			Event.emit_signal("change_portrait", "")
 		initial_click_point = get_viewport().get_mouse_position()
 		is_click_dragging = true
 	
