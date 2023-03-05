@@ -2,7 +2,7 @@ extends Node3D
 
 @export_category("Camera movement")
 @export_range(5, 50) var mouse_move_threshold : int = 20
-@export_range(1, 50) var move_speed : float = 10
+@export_range(1, 50) var move_speed : float = 0
 @export_range(0.1, 1) var pan_speed : float = 0.3
 
 var screen_size : Vector2i

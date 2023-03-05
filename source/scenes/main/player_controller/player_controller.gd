@@ -7,6 +7,13 @@ const RAY_LENGTH : float = 5000.0
 var multi_select : bool = false
 
 
+var minimap_viewport : SubViewport :
+	set(new_viewport):
+		set_minimap_viewport(new_viewport)
+
+@onready var minimap_ref : TextureRect = %MiniMap
+
+
 func _ready() -> void:
 	GlobalRefs.player_controller = self
 	Event.connect("click_and_drag_selection_made", select_from_rectangle)
@@ -17,16 +24,18 @@ func _process(delta):
 		multi_select = true
 	elif Input.is_action_just_released("multi_select"):
 		multi_select = false
+	
+	
+	if Input.is_action_just_pressed("action_click"):
+		var selected = get_tree().get_nodes_in_group("player_selected")
+		if selected.size() != 0:
+			for node in selected:
+				action_click(node)
 
 
-
-var minimap_viewport : SubViewport :
-	set(new_viewport):
-		set_minimap_viewport(new_viewport)
-
-@onready var minimap_ref : TextureRect = %MiniMap
-
-
+func action_click(node) -> void:
+	if node.is_in_group("owned_by_player"):
+		node.move(cast_ray_from_camera(get_viewport().get_mouse_position()))
 
 
 func set_minimap_viewport(new_viewport : SubViewport) -> void:

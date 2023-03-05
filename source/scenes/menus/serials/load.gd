@@ -3,7 +3,7 @@ extends SaveMenu
 @onready var delete_button_ref := $Panel/VBoxContainer/HBoxContainer/MarginContainer3/DeleteButton
 @onready var load_button_ref := $Panel/VBoxContainer/HBoxContainer/MarginContainer2/LoadButton
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if current_selection != null:
 		delete_button_ref.disabled = false
 		load_button_ref.disabled = false

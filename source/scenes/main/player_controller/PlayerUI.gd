@@ -9,7 +9,7 @@ var is_click_dragging : bool = false
 
 func _process(delta: float) -> void:
 	
-	if Input.is_action_just_pressed("ui_select") and !is_click_dragging:
+	if Input.is_action_just_pressed("select_click") and !is_click_dragging:
 		if !GlobalRefs.player_controller.multi_select:
 			var selected = get_tree().get_nodes_in_group("player_selected")
 			if selected.size() != 0:
@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 		initial_click_point = get_viewport().get_mouse_position()
 		is_click_dragging = true
 	
-	if Input.is_action_just_released("ui_select") and is_click_dragging:
+	if Input.is_action_just_released("select_click") and is_click_dragging:
 		is_click_dragging = false
 		Event.emit_signal("click_and_drag_selection_made", select_rectangle)
 		queue_redraw()
@@ -26,8 +26,6 @@ func _process(delta: float) -> void:
 	if is_click_dragging:
 		select_rectangle = update_selection_rectangle(get_viewport().get_mouse_position())
 		queue_redraw()
-	
-	
 
 
 func _draw():

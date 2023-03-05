@@ -48,7 +48,7 @@ func _process(_delta):
 func _input(event):
 	# Also check for action released of the select button, so it doesn't automatically load into the game if the 
 	# file is small enough.
-	if is_finished_loading and !(event is InputEventMouseMotion) and !event.is_action_released("ui_select"):
+	if is_finished_loading and !(event is InputEventMouseMotion) and !event.is_action_released("select_click"):
 		finish_switch()
 
 

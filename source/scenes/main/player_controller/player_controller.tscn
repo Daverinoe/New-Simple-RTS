@@ -60,7 +60,7 @@ script = ExtResource("4_gsr3h")
 pan_speed = 0.1
 
 [node name="PlayerCamera" type="Camera3D" parent="CameraArm"]
-transform = Transform3D(1, 0, 0, 0, 0.601815, 0.798636, 0, -0.798636, 0.601815, 0, 20, 15)
+transform = Transform3D(1, 0, 0, 0, 0.601815, 0.798636, 0, -0.798636, 0.601815, 0, 10, 15)
 cull_mask = 1047039
 current = true
 

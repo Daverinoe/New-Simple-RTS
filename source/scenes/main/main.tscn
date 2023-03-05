@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://byhwma6bp3ebs"]
+[gd_scene load_steps=18 format=3 uid="uid://byhwma6bp3ebs"]
 
 [ext_resource type="Script" path="res://source/scenes/main/main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cr3yf10qwm830" path="res://source/scenes/main/player_controller/player_controller.tscn" id="2_vh1hj"]
+[ext_resource type="Script" path="res://source/scenes/main/NavigationRegion3D.gd" id="3_2ta5j"]
 [ext_resource type="PackedScene" uid="uid://so4yr7vhp3xm" path="res://assets/models/humans/farm.tscn" id="3_3e3t6"]
 [ext_resource type="Script" path="res://source/scenes/main/MiniMap.gd" id="4_04gih"]
 [ext_resource type="PackedScene" uid="uid://33lyrqwhxcaf" path="res://assets/models/humans/units/peasant/peasant.tscn" id="4_ljls4"]
 [ext_resource type="Script" path="res://source/scenes/main/DayNightCycle.gd" id="5_qbkxf"]
+[ext_resource type="Script" path="res://source/scenes/main/Terrain.gd" id="8_cuuee"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6rf7u"]
 
@@ -24,6 +26,10 @@ sky_material = SubResource("PhysicalSkyMaterial_4jc35")
 background_mode = 2
 sky = SubResource("Sky_wlnc2")
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_kd24k"]
+geometry_source_geometry_mode = 1
+geometry_source_group_name = &"navmesh_data_source"
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8gft"]
 albedo_color = Color(0.0980392, 0.239216, 0.0745098, 1)
 
@@ -34,11 +40,7 @@ size = Vector2(100, 100)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_r4ht8"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_kd24k"]
-vertices = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, -50)
-polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(1, 3, 2)]
-
-[node name="main" type="Node3D" node_paths=PackedStringArray("player_controller")]
+[node name="LevelTemplate" type="Node3D" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("1")
 player_controller = NodePath("PlayerController")
 map_size = Vector2(100, 100)
@@ -48,28 +50,23 @@ map_size = Vector2(100, 100)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3qheu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_n6xwp")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_r4ht8")
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="MeshInstance3D"]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_kd24k")
+script = ExtResource("3_2ta5j")
 
-[node name="TestBuildings" type="Node3D" parent="."]
+[node name="Obstacles" type="Node3D" parent="."]
 
-[node name="Farm" parent="TestBuildings" instance=ExtResource("3_3e3t6")]
+[node name="peasant" parent="Obstacles" instance=ExtResource("4_ljls4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.83359, 0.0901793, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+
+[node name="Farm" parent="Obstacles" instance=ExtResource("3_3e3t6")]
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 armour_type = 2
 armour = 2.0
-
-[node name="peasant" parent="TestBuildings" instance=ExtResource("4_ljls4")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 2.83359, 0, 0)
 
 [node name="MiniMap" type="SubViewport" parent="."]
 canvas_cull_mask = 4293918720
@@ -85,3 +82,12 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 10.2569, 0)
 shadow_enabled = true
 script = ExtResource("5_qbkxf")
+
+[node name="Terrain" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_n6xwp")
+script = ExtResource("8_cuuee")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_r4ht8")

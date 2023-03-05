@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://so4yr7vhp3xm"]
+[gd_scene load_steps=11 format=3 uid="uid://so4yr7vhp3xm"]
 
 [ext_resource type="Script" path="res://source/scenes/main/selectables/building.gd" id="1_pnena"]
 [ext_resource type="Texture2D" uid="uid://c5uwt5oprhmmd" path="res://assets/models/humans/Human_Village_Building_08_Map #1.png" id="2_6bkpg"]
@@ -50,11 +50,17 @@ points = PackedVector3Array(268.471, 20.5147, -322.255, -26.076, 69.7473, 338.55
 [sub_resource type="PlaneMesh" id="PlaneMesh_pbwlb"]
 size = Vector2(6, 6)
 
-[node name="Farm" type="CharacterBody3D" node_paths=PackedStringArray("selection_circle", "visibility_notifier")]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gguql"]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_nb6jf"]
+
+[node name="Farm" type="CharacterBody3D" node_paths=PackedStringArray("selection_circle", "visibility_notifier", "animation_player", "animation_tree")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 script = ExtResource("1_pnena")
 selection_circle = NodePath("SelectionCircle")
 visibility_notifier = NodePath("VisibleOnScreenNotifier3D")
+animation_player = NodePath("AnimationPlayer")
+animation_tree = NodePath("AnimationTree")
 
 [node name="Human_Village_Building_082" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0, 0)
@@ -83,3 +89,10 @@ transform = Transform3D(15, 0, 0, 0, -6.55671e-07, 15, 0, -15, -6.55671e-07, 0, 
 visible = false
 double_sided = false
 texture = ExtResource("3_hrcnl")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_gguql")
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource("AnimationNodeStateMachinePlayback_nb6jf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -103,7 +103,7 @@ func update_action_binding(action_name: String, key: int) -> void:
 	InputMap.action_erase_events(action_name)
 
 	var event: InputEventKey = InputEventKey.new()
-	event.keycode = key
+	event.keycode = (key as Key)
 
 	InputMap.action_add_event(action_name, event)
 

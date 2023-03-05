@@ -39,7 +39,7 @@ func _on_gui_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("ui_accept")
 	or (event is InputEventMouseButton and (event as InputEventMouseButton).double_click)):
 		emit_signal("selected", true)
-	if event.is_action_pressed("ui_select"):
+	if event.is_action_pressed("select_click"):
 		emit_signal("selected", false)
 
 

@@ -24,6 +24,11 @@ enum OWNERS {
 @export_category("Visibility variables")
 @export var visibility_notifier : VisibleOnScreenNotifier3D
 
+@export_category("Animation variables")
+@export var animation_player : AnimationPlayer
+@export var animation_tree : AnimationTree
+@onready var state_machine = animation_tree["parameters/playback"]
+
 
 var owner_names : Dictionary = {
 	0: "player",
