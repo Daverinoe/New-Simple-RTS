@@ -4,6 +4,7 @@ class_name Selectable
 enum OWNERS {
 	PLAYER = 0,
 	AI = 1,
+	NEUTRAL = 2,
 }
 
 @export_category("Unit")
@@ -49,7 +50,7 @@ var selected : bool = false :
 		selection_circle.visible = select_state
 		check_and_set_select_group()
 		Event.emit_signal("selectable_select_state", self, select_state)
-		Event.emit_signal("change_portrait", selectable_name)
+		Event.emit_signal("change_portrait", selectable_name, in_game_owner)
 
 
 func _ready():

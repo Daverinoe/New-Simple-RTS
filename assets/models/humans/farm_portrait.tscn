@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba8pc0l5bfvdo"]
+
+[ext_resource type="PackedScene" uid="uid://so4yr7vhp3xm" path="res://assets/models/humans/farm.tscn" id="1_idusb"]
+
+[sub_resource type="Environment" id="Environment_qjcn2"]
+
+[node name="VisibilityContainer" type="Node3D"]
+visible = false
+
+[node name="Farm" parent="." instance=ExtResource("1_idusb")]
+script = null
+
+[node name="PortraitCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.946006, 0, 0.324149, 0, 1, 0, -0.324149, 0, 0.946006, 0.624564, 0.942005, 1.92464)
+cull_mask = 4
+environment = SubResource("Environment_qjcn2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.95923, 0.251819, -0.128314, 0, 0.454006, 0.890999, 0.282626, -0.854673, 0.435496, -0.618212, 1.25096, 1.50429)

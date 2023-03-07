@@ -23,3 +23,11 @@ var minimap_viewport : SubViewport
 
 # Controller refs
 var player_controller : PlayerController
+
+
+# Player colours
+var SELECT_COLOURS : Dictionary = {
+	Selectable.OWNERS.PLAYER: Color(0, 0, 1),
+	Selectable.OWNERS.AI: Color(1, 0, 0),
+	Selectable.OWNERS.NEUTRAL: Color(1, 1, 0),
+}
