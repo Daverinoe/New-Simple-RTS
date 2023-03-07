@@ -92,6 +92,11 @@ func set_group(on_screen: bool) -> void:
 
 
 func move(destination: Vector3) -> void:
+	# Check to see if in group, then offset target position by position in group.
+	var group_size = get_tree().get_nodes_in_group("player_selected").size()
+	if group_size > 1:
+		destination += Vector3(randf() * group_size, 0, randf() * group_size)
+	
 	destination.y = 0
 	navigation_agent.set_target_position(destination)
 	state_machine.travel("MOVE")

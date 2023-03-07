@@ -12,6 +12,12 @@ var initial_mouse_position : Vector2 = Vector2.ZERO
 var initial_camera_position : Vector3
 var offset : Vector2 = Vector2.ZERO
 
+var tween : Tween
+var max_zoom : float = 10.0
+var min_zoom : float = 0.5
+var min_arm_rotation : float = 0
+var max_arm_rotation : float = 70
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = DisplayServer.screen_get_size()
@@ -20,12 +26,18 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_MIDDLE:
-		if event.is_pressed() and !middle_mouse:
-			initial_mouse_position = Vector2.ZERO
-			middle_mouse = true
-		else:
-			middle_mouse = false
+	if event is InputEventMouseButton:
+		match event.button_index:
+			MOUSE_BUTTON_MIDDLE:
+				if event.is_pressed() and !middle_mouse:
+					initial_mouse_position = Vector2.ZERO
+					middle_mouse = true
+				else:
+					middle_mouse = false
+			MOUSE_BUTTON_WHEEL_UP:
+				set_zoom(self.position.y - 2.5, self.rotation_degrees.x + 20)
+			MOUSE_BUTTON_WHEEL_DOWN:
+				set_zoom(self.position.y + 2.5, self.rotation_degrees.x - 20)
 
 
 # Called every physics frame. 'delta' is the elapsed time since the previous frame.
@@ -58,6 +70,22 @@ func check_mouse_boundaries() -> void:
 		move_direction.y = 1
 	else:
 		move_direction.y = 0 
+
+
+func set_zoom(new_zoom_level: float, new_arm_rotation: float) -> void:
+	if tween != null:
+		tween.kill()
+	tween = create_tween()
+	
+	tween.tween_property(self,
+	"position:y",
+	clamp(new_zoom_level, min_zoom, max_zoom),
+	0.5)
+	
+	tween.parallel().tween_property(self,
+	"rotation_degrees:x",
+	clamp(new_arm_rotation, min_arm_rotation, max_arm_rotation),
+	0.5)
 
 
 func click_and_drag(delta: float) -> void:

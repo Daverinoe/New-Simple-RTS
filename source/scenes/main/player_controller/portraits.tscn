@@ -63,7 +63,7 @@ transform = Transform3D(-0.949426, 0, -0.313992, 0, 1, 0, 0.313992, 0, -0.949426
 script = null
 
 [node name="PortraitCamera" type="Camera3D" parent="Peasant/VisibilityContainer"]
-transform = Transform3D(0.946006, 0, 0.324149, 0, 1, 0, -0.324149, 0, 0.946006, 0.181341, 0.787322, 0.565393)
+transform = Transform3D(0.946006, 0, 0.324149, 0, 1, 0, -0.324149, 0, 0.946006, 0.171872, 0.787322, 0.383076)
 cull_mask = 2
 environment = SubResource("Environment_qjcn2")
 
